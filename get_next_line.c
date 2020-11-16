@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 char	*get_statc_temp(char *temp)
 {
-	char	*rtn;
+	char	*res;
 	int		i;
 	int		j;
 
@@ -16,36 +16,36 @@ char	*get_statc_temp(char *temp)
 		free(temp);
 		return (0);
 	}
-	if (!(rtn = malloc(sizeof(char) * ((ft_strlen(temp) - i) + 1))))
+	if (!(res = malloc(sizeof(char) * ((ft_strlen(temp) - i) + 1))))
 		return (0);
 	i++;
 	while (temp[i])
-		rtn[j++] = temp[i++];
-	rtn[j] = '\0';
+		res[j++] = temp[i++];
+	res[j] = '\0';
 	free(temp);
-	return (rtn);
+	return (res);
 }
 
 char	*get_line(char *str)
 {
 	int		i;
-	char	*rtn;
+	char	*res;
 
 	i = 0;
 	if (!str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (!(rtn = malloc(sizeof(char) * (i + 1))))
+	if (!(res = malloc(sizeof(char) * (i + 1))))
 		return (0);
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
-		rtn[i] = str[i];
+		res[i] = str[i];
 		i++;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	res[i] = '\0';
+	return (res);
 }
 
 int			has_newline(char *str)
