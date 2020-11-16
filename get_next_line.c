@@ -48,7 +48,7 @@ char	*get_line(char *str)
 	return (rtn);
 }
 
-int			has_return(char *str)
+int			has_newline(char *str)
 {
 	int i;
 
@@ -66,33 +66,33 @@ int			has_return(char *str)
 
 int		get_next_line(int fd, char **line)
 {
-	char			*buff;
+	char			*buf;
 	static char		*temp;
-	int				reader;
+	int				read_size;
 
-	reader = 1;
-	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+	read_size = 1;
+	if (fd < 0 || !line || bufER_SIZE <= 0)
 	{
 		return (-1);
 	}
-	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if (!(buf = malloc(sizeof(char) * (bufER_SIZE + 1))))
 	{
 		return (-1);
 	}
-	while (!has_return(temp) && reader != 0)
+	while (!has_newline(temp) && read_size != 0)
 	{
-		if ((reader = read(fd, buff, BUFFER_SIZE)) == -1)
+		if ((read_size = read(fd, buf, bufER_SIZE)) == -1)
 		{
-			free(buff);
+			free(buf);
 			return (-1);
 		}
-		buff[reader] = '\0';
-		temp = join_str(temp, buff);
+		buf[read_size] = '\0';
+		temp = join_str(temp, buf);
 	}
-	free(buff);
+	free(buf);
 	*line = get_line(temp);
 	temp = get_statc_temp(temp);
-	if (reader == 0)
+	if (read_size == 0)
 		return (0);
 	return (1);
 }
